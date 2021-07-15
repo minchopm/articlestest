@@ -3,6 +3,7 @@ import './App.css';
 import { BrowserRouter, Switch, Redirect, Route } from "react-router-dom";
 import Articles from "./components/Articles/Articles";
 import SingleArticle from "./components/SingleArticle/SingleArticle";
+import EditArticle from "./components/EditArticle/EditArticle";
 
 
 class App extends Component {
@@ -13,6 +14,7 @@ class App extends Component {
           <Switch>
             <Redirect from="/" exact to="/articles" />
             <Route path="/articles" exact component={Articles} />
+            <Route path="/articles/edit" exact component={EditArticle} />
             <Route path="/articles/:id" component={SingleArticle} />
           </Switch>
         </BrowserRouter>
