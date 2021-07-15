@@ -7,7 +7,8 @@ class SingleArticle extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            article: null
+            article: null,
+            articles: []
         };
     }
 
@@ -16,7 +17,8 @@ class SingleArticle extends Component {
             .then(res => res.json())
             .then(res => {
             if(res.status === 'ok') {
-                this.setState({article: res.articles[this.props.match.params.id-1]});
+                this.setState({article: res.articles[this.props.match.params.id-1],
+                articles: res.articles});
             }
         });
     }
@@ -34,8 +36,10 @@ class SingleArticle extends Component {
                 <div style={{display: 'flex', alignItems: 'center', justifyContent: 'flex-start', maxWidth: 600}}>
                     <Dropdown.Divider style={{flex: '1 1 auto'}} /><a href="/articles" style={{textDecoration: 'none', marginLeft: 15}}>Back to the listing</a>
                 </div>
-                <div style={{maxWidth: 600}}>
-                    
+                <div style={{maxWidth: 600, display: 'flex', alignItems: 'center', justifyContent: 'flex-start'}}>
+                    {this.props.match.params.id > 1 && <a href={`/articles/${+this.props.match.params.id-1}`} style={{textDecoration: 'none', marginRight: 10}}>Previous</a>}
+                    {this.props.match.params.id > 1 && this.props.match.params.id < this.state.articles.length && <div>-</div>}
+                    {this.props.match.params.id < this.state.articles.length && <a href={`/articles/${+this.props.match.params.id+1}`} style={{textDecoration: 'none', marginLeft: 10}}>Next</a>}
                 </div>
             </div>
         );
