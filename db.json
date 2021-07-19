@@ -1,0 +1,19 @@
+{
+    "articles": [
+    { 
+        "id": 1, 
+        "description": "Hardcoded description", 
+        "publishedAt": "10.10.2020" 
+    },
+    { 
+        "id": 2, 
+        "description": "Hardcoded description 2", 
+        "publishedAt": "20.10.2020" 
+    },
+    { 
+        "id": 3, 
+        "description": "Hardcoded description 3", 
+        "publishedAt": "30.10.2020" 
+    }
+    ]
+}
