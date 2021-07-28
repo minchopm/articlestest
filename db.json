@@ -3,7 +3,7 @@
     { 
         "id": 1, 
         "title": "Article 1",
-        "description": "Hardcoded description", 
+        "description": "Hardcoded description with more than 50 characters so you know that everthing works perfectly fine.", 
         "publishedAt": "2020-10-29",
         "isActive": true
     },
