@@ -7,6 +7,15 @@ import EditArticle from "./components/EditArticle/EditArticle";
 
 
 class App extends Component {
+  componentDidMount() {
+    fetch('http://localhost:3004/articles')
+        .then(res => res.json())
+        .then(res => {
+            this.setState({articles: res});
+            localStorage.setItem('articles', JSON.stringify(res));
+        }
+    );
+  }
   render() {
     return (
       <div className="App">

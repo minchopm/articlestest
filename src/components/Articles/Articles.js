@@ -12,12 +12,7 @@ class Articles extends Component {
     }
 
     componentDidMount() {
-        fetch('http://localhost:3004/articles')
-            .then(res => res.json())
-            .then(res => {
-                this.setState({articles: res});
-            }
-        );
+        this.setState({ articles: JSON.parse(localStorage.getItem('articles'))})
     }
 
     render() {

@@ -13,12 +13,8 @@ class SingleArticle extends Component {
     }
 
     componentDidMount() {
-        fetch('http://localhost:3004/articles')
-            .then(res => res.json())
-            .then(res => {
-                this.setState({article: res[this.props.match.params.id-1],
-                articles: res});
-        });
+        const articles = JSON.parse(localStorage.getItem('articles'));
+        this.setState({ articles: articles, article: articles[this.props.match.params.id-1]});
     }
 
     render() {
@@ -29,8 +25,8 @@ class SingleArticle extends Component {
                 {this.state.article && 
                 <div style={{textAlign: 'left', maxWidth: 600, margin: 'auto'}}>
 
-                    <h4 style={{color: '#4EAACD', margin: '10px 0', cursor: 'pointer', width: 'fit-content'}}>Article {this.props.match.params.id}</h4>
-                    <div style={{marginBottom: 5}}>{this.state.article.description ? this.state.article.description : 'Lorem ipsum '}</div>
+                    <h4 style={{color: '#4EAACD', margin: '10px 0', cursor: 'pointer', width: 'fit-content'}}>{this.state.article.title}</h4>
+                    <div style={{marginBottom: 5}}>{this.state.article.description}</div>
                     <div style={{fontSize: 14, color: 'grey'}}>{moment(this.state.article.publishedAt).format("MMMM DD, YYYY")}</div>
                 </div>}
                 <div style={{display: 'flex', alignItems: 'center', justifyContent: 'flex-start', maxWidth: 600, margin: 'auto'}}>

@@ -8,16 +8,25 @@ class EditArticle extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            id: null,
             title: '',
-            content: '',
-            date: '',
+            description: '',
+            publishedAt: '',
             isActive: false
         };
     }
 
     componentDidMount() {
         if(this.props.match.params.id) {
-            
+            const articles = JSON.parse(localStorage.getItem('articles'));
+            const foundArticle = articles[this.props.match.params.id-1];
+            this.setState({
+                id: foundArticle.id,
+                title: foundArticle.title,
+                description: foundArticle.description,
+                publishedAt: foundArticle.publishedAt,
+                isActive: foundArticle.isActive
+            });
         }
     }
 
@@ -42,19 +51,20 @@ class EditArticle extends Component {
                     <Form style={{textAlign: 'left'}} onSubmit={this.submitForm}>
                         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1" >
                             <Form.Label>Title</Form.Label>
-                            <Form.Control type="text" placeholder="Enter article title" onChange={(event) => this.setState({title: event.target.value})} />
+                            <Form.Control type="text" placeholder="Enter article title" onChange={(event) => this.setState({title: event.target.value})} 
+                            value={this.state.title} />
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1" >
                             <Form.Label>Content</Form.Label>
                             <Editor
                                 tools={OriginalTools}
-                                value={this.state.content}
-                                onChange={(value) => this.setState({content: value})}
+                                value={this.state.description}
+                                onChange={(value) => this.setState({description: value})}
                             />
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="formBasicCheckbox">
                             <Form.Label>Date</Form.Label>
-                            <Form.Control type="date" name='date_of_birth' onChange={(event) => this.setState({date: event.target.value})} value={this.state.date} />
+                            <Form.Control type="date" name='date_of_birth' onChange={(event) => this.setState({publishedAt: event.target.value})} value={this.state.publishedAt} />
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="formBasicCheckbox">
                             <Form.Check type="checkbox" label="Is Active" onChange={() => this.setState({isActive: !this.state.isActive})} checked={this.state.isActive} />
