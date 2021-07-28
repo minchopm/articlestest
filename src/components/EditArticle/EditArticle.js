@@ -73,21 +73,25 @@ class EditArticle extends Component {
                         </Tab>
                     </Tabs>
                     <Form style={{textAlign: 'left'}} onSubmit={this.submitForm}>
-                        <Form.Group className="mb-3" controlId="exampleForm.ControlInput1" >
-                            <Form.Label>Title</Form.Label>
+                        <Form.Group className="mb-3 otherGroup" controlId="exampleForm.ControlInput1">
+                            <Form.Label>
+                                Title <span className="red">*</span>
+                            </Form.Label>
                             <Form.Control type="text" placeholder="Enter article title" onChange={(event) => this.setState({title: event.target.value})} 
                             value={this.state.title} />
                         </Form.Group>
-                        <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1" >
-                            <Form.Label>Content</Form.Label>
+                        <Form.Group className="mb-3 contentGroup" controlId="exampleForm.ControlTextarea1">
+                            <Form.Label>Content <span className="red">*</span></Form.Label>
                             <Editor
                                 tools={OriginalTools}
                                 value={this.state.description}
                                 onChange={(value) => this.setState({description: value})}
                             />
                         </Form.Group>
-                        <Form.Group className="mb-3" controlId="formBasicCheckbox">
-                            <Form.Label>Date</Form.Label>
+                        <Form.Group className="mb-3 otherGroup" controlId="formBasicCheckbox">
+                            <Form.Label>
+                                Date <span className="red">*</span>
+                            </Form.Label>
                             <Form.Control type="date" name='date_of_birth' onChange={(event) => this.setState({publishedAt: event.target.value})} value={this.state.publishedAt} />
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="formBasicCheckbox">
