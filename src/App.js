@@ -14,7 +14,8 @@ class App extends Component {
           <Switch>
             <Redirect from="/" exact to="/articles" />
             <Route path="/articles" exact component={Articles} />
-            <Route path="/articles/edit" exact component={EditArticle} />
+            <Route path="/articles/add" exact component={EditArticle} />
+            <Route path="/articles/edit/:id" component={EditArticle} />
             <Route path="/articles/:id" component={SingleArticle} />
           </Switch>
         </BrowserRouter>

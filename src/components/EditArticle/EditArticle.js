@@ -16,6 +16,9 @@ class EditArticle extends Component {
     }
 
     componentDidMount() {
+        if(this.props.match.params.id) {
+            
+        }
     }
 
     submitForm = (event) => {
