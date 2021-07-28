@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Dropdown } from "react-bootstrap";
+import { Dropdown, Button } from "react-bootstrap";
 import * as moment from 'moment';
 
 class Articles extends Component {
@@ -19,13 +19,19 @@ class Articles extends Component {
         return (
             <div style={{marginLeft: 15}}>
                 <h1>Articles listing</h1>
+                <Button onClick={() => this.props.history.push('/articles/add')}>Add article</Button>
                 {this.state.articles.length > 0 && this.state.articles.map((el, index) =>
                 <div style={{maxWidth: 600, textAlign: 'left', margin: 'auto'}} key={index}>
-                    <h4 style={{color: '#4EAACD', margin: '10px 0', cursor: 'pointer', width: 'fit-content'}} onClick={() => this.props.history.push(`/articles/${index+1}`)}>{el.title}</h4>
+                    <h4 style={{color: '#4EAACD', margin: '10px 0', cursor: 'pointer', width: 'fit-content'}} onClick={() => this.props.history.push(`/articles/${el.id}`)}>{el.title}</h4>
                     <div style={{flex: 1, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', marginBottom: 5}}>
                         {el.description.length > 50 ? el.description.substring(0,50)+'...' : el.description}
                     </div>
-                    <div style={{fontSize: 14, color: 'grey'}}>{moment(el.publishedAt).format("MMMM DD, YYYY")}</div>
+                    <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+                        <div style={{fontSize: 14, color: 'grey'}}>
+                            {moment(el.publishedAt).format("MMMM DD, YYYY")}
+                        </div>
+                        <Button onClick={() => this.props.history.push(`/articles/edit/${el.id}`)}>Edit article</Button>
+                    </div>
                     <Dropdown.Divider />
                 </div>
                 )}
