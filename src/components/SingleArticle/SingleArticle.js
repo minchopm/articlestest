@@ -15,6 +15,21 @@ class SingleArticle extends Component {
     componentDidMount() {
         const articles = JSON.parse(localStorage.getItem('articles'));
         this.setState({ articles: articles, article: articles[this.props.match.params.id-1]});
+        console.log('daaa', articles);
+    }
+    next(event) {
+        event.preventDefault();
+        this.setState({ article: this.state.articles[+this.props.match.params.id]});
+        this.props.history.push(`/articles/${+this.props.match.params.id+1}`);
+    }
+    previous(event) {
+        event.preventDefault();
+        this.setState({ article: this.state.articles[+this.props.match.params.id-2]});
+        this.props.history.push(`/articles/${+this.props.match.params.id-1}`);
+    }
+    goToArticles(event) {
+        event.preventDefault();
+        this.props.history.push('/articles');
     }
 
     render() {
@@ -30,12 +45,24 @@ class SingleArticle extends Component {
                     <div style={{fontSize: 14, color: 'grey'}}>{moment(this.state.article.publishedAt).format("MMMM DD, YYYY")}</div>
                 </div>}
                 <div style={{display: 'flex', alignItems: 'center', justifyContent: 'flex-start', maxWidth: 600, margin: 'auto'}}>
-                    <Dropdown.Divider style={{flex: '1 1 auto'}} /><a href="/articles" style={{textDecoration: 'none', marginLeft: 15}}>Back to the listing</a>
+                    <Dropdown.Divider style={{flex: '1 1 auto'}} />
+                    <a style={{textDecoration: 'none', marginLeft: 15, color: '#0d6efd', cursor: 'pointer'}}
+                        onClick={(event) => this.goToArticles(event)}>
+                        Back to the listing
+                    </a>
                 </div>
                 <div style={{maxWidth: 600, display: 'flex', alignItems: 'center', justifyContent: 'flex-start', margin: 'auto'}}>
-                    {this.props.match.params.id > 1 && <a href={`/articles/${+this.props.match.params.id-1}`} style={{textDecoration: 'none', marginRight: 10}}>&lt; Previous</a>}
+                    {this.props.match.params.id > 1 && 
+                    <a style={{textDecoration: 'none', marginRight: 10, cursor: 'pointer', color: '#0d6efd'}} 
+                        onClick={(event) => this.previous(event)}>
+                            &lt; Previous
+                    </a>}
                     {this.props.match.params.id > 1 && this.props.match.params.id < this.state.articles.length && <div>-</div>}
-                    {this.props.match.params.id < this.state.articles.length && <a href={`/articles/${+this.props.match.params.id+1}`} style={{textDecoration: 'none', marginLeft: 10}}>Next &gt;</a>}
+                    {this.props.match.params.id < this.state.articles.length && 
+                    <a style={{textDecoration: 'none', marginLeft: 10, cursor: 'pointer', color: '#0d6efd'}} 
+                        onClick={(event) => this.next(event)}>
+                            Next &gt;
+                    </a>}
                 </div>
             </div>
         );

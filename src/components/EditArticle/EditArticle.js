@@ -32,14 +32,29 @@ class EditArticle extends Component {
 
     submitForm = (event) => {
         event.preventDefault();
-        console.log('state', this.state)
+        const articles = JSON.parse(localStorage.getItem('articles'));
+        if(this.props.match.params.id) {
+            const foundArticle = articles[this.props.match.params.id-1];
+            foundArticle.title = this.state.title;
+            foundArticle.description = this.state.description;
+            foundArticle.publishedAt = this.state.publishedAt;
+            foundArticle.isActive = this.state.isActive;
+            localStorage.setItem('articles', JSON.stringify(articles));
+            this.props.history.push('/articles');
+        }
+        console.log('state', articles);
+        // this.props.history.push('/articles');
     }
 
     render() {
         return (
             <div style={{marginLeft: 15}}>
                 <div style={{maxWidth: 600}}>
-                    <h1>Edit Article</h1>
+                    {
+                        this.props.match.params.id 
+                        ? <h1>Edit Article</h1> 
+                        : <h1>Add Article</h1>
+                    }
                     <Tabs defaultActiveKey="english" id="uncontrolled-tab-example" className="mb-3">
                         <Tab eventKey="english" title="English">
                         </Tab>

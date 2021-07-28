@@ -21,8 +21,8 @@ class Articles extends Component {
                 <h1>Articles listing</h1>
                 {this.state.articles.length > 0 && this.state.articles.map((el, index) =>
                 <div style={{maxWidth: 600, textAlign: 'left', margin: 'auto'}} key={index}>
-                    <h4 style={{color: '#4EAACD', margin: '10px 0', cursor: 'pointer', width: 'fit-content'}} onClick={() => this.props.history.push(`/articles/${index+1}`)}>Article {index+1}</h4>
-                    <div style={{flex: 1, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', marginBottom: 5}}>{el.description ? el.description : 'Lorem ipsum '}</div>
+                    <h4 style={{color: '#4EAACD', margin: '10px 0', cursor: 'pointer', width: 'fit-content'}} onClick={() => this.props.history.push(`/articles/${index+1}`)}>{el.title}</h4>
+                    <div style={{flex: 1, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', marginBottom: 5}}>{el.description}</div>
                     <div style={{fontSize: 14, color: 'grey'}}>{moment(el.publishedAt).format("MMMM DD, YYYY")}</div>
                     <Dropdown.Divider />
                 </div>
