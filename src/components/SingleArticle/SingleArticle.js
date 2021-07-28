@@ -15,7 +15,6 @@ class SingleArticle extends Component {
     componentDidMount() {
         const articles = JSON.parse(localStorage.getItem('articles'));
         this.setState({ articles: articles, article: articles[this.props.match.params.id-1]});
-        console.log('daaa', articles);
     }
     next(event) {
         event.preventDefault();

@@ -42,7 +42,6 @@ class EditArticle extends Component {
             localStorage.setItem('articles', JSON.stringify(articles));
             this.props.history.push('/articles');
         }
-        console.log('state', articles);
         // this.props.history.push('/articles');
     }
 
