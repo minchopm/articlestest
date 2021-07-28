@@ -8,12 +8,12 @@
     { 
         "id": 2, 
         "description": "Hardcoded description 2", 
-        "publishedAt": "20.10.2020" 
+        "publishedAt": "10.20.2020" 
     },
     { 
         "id": 3, 
         "description": "Hardcoded description 3", 
-        "publishedAt": "30.10.2020" 
+        "publishedAt": "10.30.2020" 
     }
     ]
 }

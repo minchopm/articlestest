@@ -1,16 +1,26 @@
 import React, { Component } from "react";
 import { Tabs, Tab, Form, Button } from "react-bootstrap";
 import * as moment from 'moment';
+import { Editor, OriginalTools } from 'react-bootstrap-editor';
 
 class EditArticle extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
+            title: '',
+            content: '',
+            date: '',
+            isActive: false
         };
     }
 
     componentDidMount() {
+    }
+
+    submitForm = (event) => {
+        event.preventDefault();
+        console.log('state', this.state)
     }
 
     render() {
@@ -26,21 +36,25 @@ class EditArticle extends Component {
                         <Tab eventKey="bulgarian" title="Bulgarian">
                         </Tab>
                     </Tabs>
-                    <Form style={{textAlign: 'left'}}>
+                    <Form style={{textAlign: 'left'}} onSubmit={this.submitForm}>
                         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1" >
                             <Form.Label>Title</Form.Label>
-                            <Form.Control type="text" placeholder="Enter article title" />
+                            <Form.Control type="text" placeholder="Enter article title" onChange={(event) => this.setState({title: event.target.value})} />
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1" >
                             <Form.Label>Content</Form.Label>
-                            <Form.Control as="textarea" rows={3} placeholder="Enter article content" />
+                            <Editor
+                                tools={OriginalTools}
+                                value={this.state.content}
+                                onChange={(value) => this.setState({content: value})}
+                            />
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="formBasicCheckbox">
                             <Form.Label>Date</Form.Label>
-                            <Form.Control type="date" name='date_of_birth' />
+                            <Form.Control type="date" name='date_of_birth' onChange={(event) => this.setState({date: event.target.value})} value={this.state.date} />
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="formBasicCheckbox">
-                            <Form.Check type="checkbox" label="Is Active" />
+                            <Form.Check type="checkbox" label="Is Active" onChange={() => this.setState({isActive: !this.state.isActive})} checked={this.state.isActive} />
                         </Form.Group>
                         <Button variant="primary" type="submit">
                             Submit
