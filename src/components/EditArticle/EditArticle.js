@@ -41,8 +41,18 @@ class EditArticle extends Component {
             foundArticle.isActive = this.state.isActive;
             localStorage.setItem('articles', JSON.stringify(articles));
             this.props.history.push('/articles');
+        } else {
+            const newArticle = {
+                id: +articles[articles.length-1].id+1,
+                title: this.state.title,
+                description: this.state.description,
+                publishedAt: this.state.publishedAt,
+                isActive: this.state.isActive
+            };
+            articles.push(newArticle);
+            localStorage.setItem('articles', JSON.stringify(articles));
+            this.props.history.push('/articles');
         }
-        // this.props.history.push('/articles');
     }
 
     render() {
