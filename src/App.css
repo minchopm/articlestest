@@ -23,7 +23,7 @@
   justify-content: flex-end;
 }
 .otherGroup input {
-  max-width: 490px;
+  max-width: 480px;
 }
 .otherGroup label {
   flex: none; 
@@ -32,4 +32,11 @@
 }
 .red {
   color: red;
+}
+
+.App {
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  /* text-align: center; */
 }
