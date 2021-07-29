@@ -22,16 +22,24 @@ class EditArticle extends Component {
             const foundArticle = articles[this.props.match.params.id-1];
             return {
                     id: foundArticle.id,
-                    title: foundArticle.title,
-                    description: foundArticle.description,
+                    titleEN: foundArticle.titleEN,
+                    descriptionEN: foundArticle.descriptionEN,
+                    titleDE: foundArticle.titleDE,
+                    descriptionDE: foundArticle.descriptionDE,
+                    titleBG: foundArticle.titleBG,
+                    descriptionBG: foundArticle.descriptionBG,
                     publishedAt: foundArticle.publishedAt,
                     isActive: foundArticle.isActive
             };
         } else {
             return {
                 id: null,
-                title: '',
-                description: '',
+                titleEN: '',
+                descriptionEN: '',
+                titleDE: '',
+                descriptionDE: '',
+                titleBG: '',
+                descriptionBG: '',
                 publishedAt: '',
                 isActive: false
             }
@@ -42,15 +50,23 @@ class EditArticle extends Component {
         const articles = JSON.parse(localStorage.getItem('articles'));
         if(this.props.match.params.id) {
             const foundArticle = articles[this.props.match.params.id-1];
-            foundArticle.title = formProps.values.title;
-            foundArticle.description = formProps.values.description;
+            foundArticle.titleEN = formProps.values.titleEN;
+            foundArticle.descriptionEN = formProps.values.descriptionEN;
+            foundArticle.titleDE = formProps.values.titleDE;
+            foundArticle.descriptionDE = formProps.values.descriptionDE;
+            foundArticle.titleBG = formProps.values.titleBG;
+            foundArticle.descriptionBG = formProps.values.descriptionBG;
             foundArticle.publishedAt = formProps.values.publishedAt;
             foundArticle.isActive = formProps.values.isActive;
         } else {
             const newArticle = {
                 id: +articles[articles.length-1].id+1,
-                title: formProps.values.title,
-                description: formProps.values.description,
+                titleEN: formProps.values.titleEN,
+                descriptionEN: formProps.values.descriptionEN,
+                titleDE: formProps.values.titleDE,
+                descriptionDE: formProps.values.descriptionDE,
+                titleBG: formProps.values.titleBG,
+                descriptionBG: formProps.values.descriptionBG,
                 publishedAt: formProps.values.publishedAt,
                 isActive: formProps.values.isActive
             };
@@ -69,33 +85,65 @@ class EditArticle extends Component {
                         ? <h1>Edit Article</h1> 
                         : <h1>Add Article</h1>
                     }
-                    <Tabs defaultActiveKey="english" id="uncontrolled-tab-example" className="mb-3">
-                        <Tab eventKey="english" title="English">
-                        </Tab>
-                        <Tab eventKey="german" title="German">
-                        </Tab>
-                        <Tab eventKey="bulgarian" title="Bulgarian">
-                        </Tab>
-                    </Tabs>
                     <Formik initialValues={this.returnInitialValues()}>
                         {(formProps) => (
                             <Form className="py-3">
-                                <Form.Group className="mb-3 otherGroup" controlId="exampleForm.ControlInput1">
-                                    <Form.Label>
-                                        Title <span className="red">*</span>
-                                    </Form.Label>
-                                    <Form.Control type="text" placeholder="Enter article title" name="title" onChange={(event) => {
-                                        formProps.setFieldValue('title', event.target.value);
-                                    }} value={formProps.values.title} />
-                                </Form.Group>
-                                <Form.Group className="mb-3 contentGroup" controlId="exampleForm.ControlTextarea1">
-                                    <Form.Label>Content <span className="red">*</span></Form.Label>
-                                    <Editor
-                                        tools={OriginalTools}
-                                        value={formProps.values.description}
-                                        onChange={(value) => formProps.setFieldValue('description', value)}
-                                    />
-                                </Form.Group>
+                                <Tabs defaultActiveKey="english" id="uncontrolled-tab-example" className="mb-3">
+                                    <Tab eventKey="english" title="English">
+                                        <Form.Group className="mb-3 otherGroup" controlId="exampleForm.ControlInput1">
+                                            <Form.Label>
+                                                Title <span className="red">*</span>
+                                            </Form.Label>
+                                            <Form.Control type="text" placeholder="Enter article title" name="titleEN" onChange={(event) => {
+                                                formProps.setFieldValue('titleEN', event.target.value);
+                                            }} value={formProps.values.titleEN} />
+                                        </Form.Group>
+                                        <Form.Group className="mb-3 contentGroup" controlId="exampleForm.ControlTextarea1">
+                                            <Form.Label>Content <span className="red">*</span></Form.Label>
+                                            <Editor
+                                                tools={OriginalTools}
+                                                value={formProps.values.descriptionEN}
+                                                onChange={(value) => formProps.setFieldValue('descriptionEN', value)}
+                                            />
+                                        </Form.Group>
+                                    </Tab>
+                                    <Tab eventKey="german" title="German">
+                                        <Form.Group className="mb-3 otherGroup" controlId="exampleForm.ControlInput1">
+                                            <Form.Label>
+                                                Title <span className="red">*</span>
+                                            </Form.Label>
+                                            <Form.Control type="text" placeholder="Enter article title" name="titleDE" onChange={(event) => {
+                                                formProps.setFieldValue('titleDE', event.target.value);
+                                            }} value={formProps.values.titleDE} />
+                                        </Form.Group>
+                                        <Form.Group className="mb-3 contentGroup" controlId="exampleForm.ControlTextarea1">
+                                            <Form.Label>Content <span className="red">*</span></Form.Label>
+                                            <Editor
+                                                tools={OriginalTools}
+                                                value={formProps.values.descriptionDE}
+                                                onChange={(value) => formProps.setFieldValue('descriptionDE', value)}
+                                            />
+                                        </Form.Group>
+                                    </Tab>
+                                    <Tab eventKey="bulgarian" title="Bulgarian">
+                                        <Form.Group className="mb-3 otherGroup" controlId="exampleForm.ControlInput1">
+                                            <Form.Label>
+                                                Title <span className="red">*</span>
+                                            </Form.Label>
+                                            <Form.Control type="text" placeholder="Enter article title" name="titleBG" onChange={(event) => {
+                                                formProps.setFieldValue('titleBG', event.target.value);
+                                            }} value={formProps.values.titleBG} />
+                                        </Form.Group>
+                                        <Form.Group className="mb-3 contentGroup" controlId="exampleForm.ControlTextarea1">
+                                            <Form.Label>Content <span className="red">*</span></Form.Label>
+                                            <Editor
+                                                tools={OriginalTools}
+                                                value={formProps.values.descriptionBG}
+                                                onChange={(value) => formProps.setFieldValue('descriptionBG', value)}
+                                            />
+                                        </Form.Group>
+                                    </Tab>
+                                </Tabs>
                                 <Form.Group className="mb-3 otherGroup" controlId="formBasicCheckbox">
                                     <Form.Label>
                                         Date <span className="red">*</span>
@@ -106,7 +154,9 @@ class EditArticle extends Component {
                                 <Form.Group className="mb-3" controlId="formBasicCheckbox">
                                     <Form.Check type="checkbox" label="Is Active" name="isActive" onChange={() => formProps.setFieldValue('isActive', !formProps.values.isActive)} checked={formProps.values.isActive} />
                                 </Form.Group>
-                                <Button variant="primary" onClick={() => this.submitForm(formProps)} disabled={!formProps.values.title || !formProps.values.description || !formProps.values.publishedAt}>
+                                <Button variant="primary" onClick={() => this.submitForm(formProps)} 
+                                    disabled={!formProps.values.title || !formProps.values.description || !formProps.values.publishedAt}
+                                >
                                     Submit
                                 </Button>
                             </Form>

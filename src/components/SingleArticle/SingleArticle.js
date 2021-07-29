@@ -39,8 +39,8 @@ class SingleArticle extends Component {
                 {this.state.article && 
                 <div style={{textAlign: 'left', maxWidth: 600, margin: 'auto'}}>
 
-                    <h4 style={{color: '#4EAACD', margin: '10px 0', cursor: 'pointer', width: 'fit-content'}}>{this.state.article.title}</h4>
-                    <div style={{marginBottom: 5}}>{this.state.article.description}</div>
+                    <h4 style={{color: '#4EAACD', margin: '10px 0', cursor: 'pointer', width: 'fit-content'}}>{this.state.article.titleEN}</h4>
+                    <div style={{marginBottom: 5}}>{this.state.article.descriptionEN}</div>
                     <div style={{fontSize: 14, color: 'grey'}}>{moment(this.state.article.publishedAt).format("MMMM DD, YYYY")}</div>
                 </div>}
                 <div style={{display: 'flex', alignItems: 'center', justifyContent: 'flex-start', maxWidth: 600, margin: 'auto'}}>

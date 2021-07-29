@@ -22,9 +22,9 @@ class Articles extends Component {
                 <Button onClick={() => this.props.history.push('/articles/add')}>Add article</Button>
                 {this.state.articles.length > 0 && this.state.articles.map((el, index) =>
                 <div style={{maxWidth: 600, textAlign: 'left', margin: 'auto'}} key={index}>
-                    <h4 style={{color: '#4EAACD', margin: '10px 0', cursor: 'pointer', width: 'fit-content'}} onClick={() => this.props.history.push(`/articles/${el.id}`)}>{el.title}</h4>
+                    <h4 style={{color: '#4EAACD', margin: '10px 0', cursor: 'pointer', width: 'fit-content'}} onClick={() => this.props.history.push(`/articles/${el.id}`)}>{el.titleEN}</h4>
                     <div style={{flex: 1, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', marginBottom: 5}}>
-                        {el.description.length > 50 ? el.description.substring(0,50)+'...' : el.description}
+                        {el.descriptionEN.length > 50 ? el.descriptionEN.substring(0,50)+'...' : el.descriptionEN}
                     </div>
                     <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
                         <div style={{fontSize: 14, color: 'grey'}}>
