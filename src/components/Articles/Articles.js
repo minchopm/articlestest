@@ -19,14 +19,6 @@ class Articles extends Component {
     returnArticle(el) {
         switch(this.state.language) {
             default:
-                return (
-                    <>
-                        <h4 onClick={() => this.props.history.push(`/articles/${el.id}`)}>{el.titleEN}</h4>
-                        <div className="articlesSingleDescription">
-                            {el.descriptionEN.length > 50 ? el.descriptionEN.substring(0,50)+'...' : el.descriptionEN}
-                        </div>
-                    </>
-                )
             case 'EN':
                 return (
                     <>
@@ -59,6 +51,7 @@ class Articles extends Component {
 
     setLanguage = (language) => {
         this.setState({language: language});
+        localStorage.setItem('language', language);
     }
 
     render() {

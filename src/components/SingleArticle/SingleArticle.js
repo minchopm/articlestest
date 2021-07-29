@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Dropdown, Button } from "react-bootstrap";
+import { Dropdown, Button, DropdownButton, ButtonGroup } from "react-bootstrap";
 import * as moment from 'moment';
 
 class SingleArticle extends Component {
@@ -8,13 +8,14 @@ class SingleArticle extends Component {
         super(props);
         this.state = {
             article: null,
-            articles: []
+            articles: [],
+            language: ''
         };
     }
 
     componentDidMount() {
         const articles = JSON.parse(localStorage.getItem('articles'));
-        this.setState({ articles: articles, article: articles[this.props.match.params.id-1]});
+        this.setState({ articles: articles, article: articles[this.props.match.params.id-1], language: localStorage.getItem('language')});
     }
     next(event) {
         event.preventDefault();
@@ -31,16 +32,54 @@ class SingleArticle extends Component {
         this.props.history.push('/articles');
     }
 
+    setLanguage = (language) => {
+        this.setState({language: language});
+        localStorage.setItem('language', language);
+    }
+
+    returnArticle() {
+        switch(this.state.language) {
+            default:
+            case 'EN':
+                return (
+                    <>
+                        <h4>{this.state.article.titleEN}</h4>
+                        <div style={{marginBottom: 5}}>{this.state.article.descriptionEN}</div>
+                    </>
+                )
+            case 'DE':
+                return (
+                    <>
+                        <h4>{this.state.article.titleDE}</h4>
+                        <div style={{marginBottom: 5}}>{this.state.article.descriptionDE}</div>
+                    </>
+                )
+            case 'BG':
+                return (
+                    <>
+                        <h4>{this.state.article.titleBG}</h4>
+                        <div style={{marginBottom: 5}}>{this.state.article.descriptionBG}</div>
+                    </>
+                )
+        }
+    }
+
     render() {
         return (
             <div style={{marginLeft: 15}}>
-                <h1 style={{fontWeight: 300}}>Articles Listing</h1>
+                <div className="language">
+                    <h1>Articles listing</h1>
+                    <DropdownButton as={ButtonGroup} title={this.state.language} id="bg-nested-dropdown">
+                        <Dropdown.Item eventKey='EN' onClick={() => this.setLanguage('EN')}>EN</Dropdown.Item>
+                        <Dropdown.Item eventKey='DE' onClick={() => this.setLanguage('DE')}>DE</Dropdown.Item>
+                        <Dropdown.Item eventKey='BG' onClick={() => this.setLanguage('BG')}>BG</Dropdown.Item>
+                    </DropdownButton>
+                </div>
                 <h2>Articles Details</h2>
                 {this.state.article && 
                 <div className="singleArticle">
 
-                    <h4>{this.state.article.titleEN}</h4>
-                    <div style={{marginBottom: 5}}>{this.state.article.descriptionEN}</div>
+                    {this.returnArticle()}
                     <div className="publishedAt">{moment(this.state.article.publishedAt).format("MMMM DD, YYYY")}</div>
                 </div>}
                 <div className="singleArticleLinks back">
