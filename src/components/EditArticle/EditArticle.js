@@ -9,6 +9,8 @@ class EditArticle extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            submitted: false,
+            missingFields: []
         };
     }
 
@@ -47,6 +49,10 @@ class EditArticle extends Component {
     }
 
     submitForm = (formProps) => {
+        if(this.disabledButton(formProps.values)) {
+            this.setState({submitted: true, missingFields: this.validations(formProps.values)});
+            return;
+        }
         const articles = JSON.parse(localStorage.getItem('articles'));
         if(this.props.match.params.id) {
             const foundArticle = articles[this.props.match.params.id-1];
@@ -80,6 +86,30 @@ class EditArticle extends Component {
         return !values.titleEN || !values.descriptionEN || !values.titleDE || !values.descriptionDE || !values.titleBG || !values.descriptionBG || !values.publishedAt;
     }
 
+    validations = (values) => {
+        const validationsArray = [];
+        const validationsMessages = {
+            titleEN: 'Missing English title',
+            descriptionEN: 'Missing English description',
+            titleDE: 'Missing German title',
+            descriptionDE: 'Missing German description',
+            titleBG: 'Missing Bulgarian title',
+            descriptionBG: 'Missing Bulgarian description',
+            publishedAt: 'Missing Publishing date'
+        };
+        ['titleEN', 'descriptionEN', 'titleDE', 'descriptionDE', 'titleBG', 'descriptionBG', 'publishedAt'].forEach((el) => {
+            if(!values[el]) {
+                validationsArray.push(validationsMessages[el]);
+            }
+        });
+        return validationsArray;
+    }
+
+    setValue = (fieldValue, value, formProps) => {
+        formProps.setFieldValue(fieldValue, value);
+        this.setState({missingFields: this.validations({...formProps.values, [fieldValue]: value})});
+    }
+
     render() {
         return (
             <div style={{marginLeft: 15}}>
@@ -98,16 +128,16 @@ class EditArticle extends Component {
                                             <Form.Label>
                                                 Title <span className="red">*</span>
                                             </Form.Label>
-                                            <Form.Control type="text" placeholder="Enter article title" name="titleEN" onChange={(event) => {
-                                                formProps.setFieldValue('titleEN', event.target.value);
-                                            }} value={formProps.values.titleEN} />
+                                            <Form.Control type="text" placeholder="Enter article title" name="titleEN" 
+                                                onChange={(event) => this.setValue('titleEN', event.target.value, formProps)}
+                                                value={formProps.values.titleEN} />
                                         </Form.Group>
                                         <Form.Group className="mb-3 contentGroup" controlId="exampleForm.ControlTextarea1">
                                             <Form.Label>Content <span className="red">*</span></Form.Label>
                                             <Editor
                                                 tools={OriginalTools}
                                                 value={formProps.values.descriptionEN}
-                                                onChange={(value) => formProps.setFieldValue('descriptionEN', value)}
+                                                onChange={(value) => this.setValue('descriptionEN', value, formProps)}
                                             />
                                         </Form.Group>
                                     </Tab>
@@ -116,16 +146,16 @@ class EditArticle extends Component {
                                             <Form.Label>
                                                 Title <span className="red">*</span>
                                             </Form.Label>
-                                            <Form.Control type="text" placeholder="Enter article title" name="titleDE" onChange={(event) => {
-                                                formProps.setFieldValue('titleDE', event.target.value);
-                                            }} value={formProps.values.titleDE} />
+                                            <Form.Control type="text" placeholder="Enter article title" name="titleDE" 
+                                                onChange={(event) => this.setValue('titleDE', event.target.value, formProps)}
+                                                value={formProps.values.titleDE} />
                                         </Form.Group>
                                         <Form.Group className="mb-3 contentGroup" controlId="exampleForm.ControlTextarea1">
                                             <Form.Label>Content <span className="red">*</span></Form.Label>
                                             <Editor
                                                 tools={OriginalTools}
                                                 value={formProps.values.descriptionDE}
-                                                onChange={(value) => formProps.setFieldValue('descriptionDE', value)}
+                                                onChange={(value) => this.setValue('descriptionDE', value, formProps)}
                                             />
                                         </Form.Group>
                                     </Tab>
@@ -134,16 +164,16 @@ class EditArticle extends Component {
                                             <Form.Label>
                                                 Title <span className="red">*</span>
                                             </Form.Label>
-                                            <Form.Control type="text" placeholder="Enter article title" name="titleBG" onChange={(event) => {
-                                                formProps.setFieldValue('titleBG', event.target.value);
-                                            }} value={formProps.values.titleBG} />
+                                            <Form.Control type="text" placeholder="Enter article title" name="titleBG"
+                                                onChange={(event) => this.setValue('titleBG', event.target.value, formProps)}
+                                                value={formProps.values.titleBG} />
                                         </Form.Group>
                                         <Form.Group className="mb-3 contentGroup" controlId="exampleForm.ControlTextarea1">
                                             <Form.Label>Content <span className="red">*</span></Form.Label>
                                             <Editor
                                                 tools={OriginalTools}
                                                 value={formProps.values.descriptionBG}
-                                                onChange={(value) => formProps.setFieldValue('descriptionBG', value)}
+                                                onChange={(value) => this.setValue('descriptionBG', value, formProps)}
                                             />
                                         </Form.Group>
                                     </Tab>
@@ -152,13 +182,20 @@ class EditArticle extends Component {
                                     <Form.Label>
                                         Date <span className="red">*</span>
                                     </Form.Label>
-                                    <Form.Control type="date" name='publishedAt' onChange={(event) => formProps.setFieldValue('publishedAt', event.target.value)} 
+                                    <Form.Control type="date" name='publishedAt' 
+                                        onChange={(event) => this.setValue('publishedAt', event.target.value, formProps)}
                                         value={formProps.values.publishedAt} />
                                 </Form.Group>
                                 <Form.Group className="mb-3" controlId="formBasicCheckbox">
                                     <Form.Check type="checkbox" label="Is Active" name="isActive" onChange={() => formProps.setFieldValue('isActive', !formProps.values.isActive)} checked={formProps.values.isActive} />
                                 </Form.Group>
-                                <Button variant="primary" onClick={() => this.submitForm(formProps)} disabled={this.disabledButton(formProps.values)}>
+                                {
+                                    this.state.submitted && this.state.missingFields.map((el, index) => 
+                                    <div key={index} className="red">
+                                        {el}
+                                    </div>)
+                                }
+                                <Button variant="primary" onClick={() => this.submitForm(formProps)} style={{marginTop: '10px'}}>
                                     Submit
                                 </Button>
                             </Form>
