@@ -108,7 +108,7 @@ class SingleArticle extends Component {
 SingleArticle.propTypes = {
     match: PropTypes.shape({
         params: PropTypes.shape({
-            id: PropTypes.number
+            id: PropTypes.string
         })
     }),
     history: PropTypes.shape({
