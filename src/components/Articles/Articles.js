@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Dropdown, Button } from "react-bootstrap";
+import { Dropdown, Button, DropdownButton, ButtonGroup } from "react-bootstrap";
 import * as moment from 'moment';
 
 class Articles extends Component {
@@ -57,10 +57,21 @@ class Articles extends Component {
         }
     }
 
+    setLanguage = (language) => {
+        this.setState({language: language});
+    }
+
     render() {
         return (
             <div style={{marginLeft: 15}}>
-                <h1>Articles listing</h1>
+                <div className="language">
+                    <h1>Articles listing</h1>
+                    <DropdownButton as={ButtonGroup} title={this.state.language} id="bg-nested-dropdown">
+                        <Dropdown.Item eventKey='EN' onClick={() => this.setLanguage('EN')}>EN</Dropdown.Item>
+                        <Dropdown.Item eventKey='DE' onClick={() => this.setLanguage('DE')}>DE</Dropdown.Item>
+                        <Dropdown.Item eventKey='BG' onClick={() => this.setLanguage('BG')}>BG</Dropdown.Item>
+                    </DropdownButton>
+                </div>
                 <Button onClick={() => this.props.history.push('/articles/add')}>Add article</Button>
                 {this.state.articles.length > 0 && this.state.articles.map((el, index) =>
                 <div key={index} className="articlesSingle">

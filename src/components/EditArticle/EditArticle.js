@@ -76,6 +76,10 @@ class EditArticle extends Component {
         this.props.history.push('/articles');
     }
 
+    disabledButton = (values) => {
+        return !values.titleEN || !values.descriptionEN || !values.titleDE || !values.descriptionDE || !values.titleBG || !values.descriptionBG || !values.publishedAt;
+    }
+
     render() {
         return (
             <div style={{marginLeft: 15}}>
@@ -154,9 +158,7 @@ class EditArticle extends Component {
                                 <Form.Group className="mb-3" controlId="formBasicCheckbox">
                                     <Form.Check type="checkbox" label="Is Active" name="isActive" onChange={() => formProps.setFieldValue('isActive', !formProps.values.isActive)} checked={formProps.values.isActive} />
                                 </Form.Group>
-                                <Button variant="primary" onClick={() => this.submitForm(formProps)} 
-                                    disabled={!formProps.values.title || !formProps.values.description || !formProps.values.publishedAt}
-                                >
+                                <Button variant="primary" onClick={() => this.submitForm(formProps)} disabled={this.disabledButton(formProps.values)}>
                                     Submit
                                 </Button>
                             </Form>
