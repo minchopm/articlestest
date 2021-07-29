@@ -4,7 +4,7 @@ import { BrowserRouter, Switch, Redirect, Route } from "react-router-dom";
 import Articles from "./components/Articles/Articles";
 import SingleArticle from "./components/SingleArticle/SingleArticle";
 import EditArticle from "./components/EditArticle/EditArticle";
-
+import 'react-quill/dist/quill.snow.css';
 
 class App extends Component {
   componentDidMount() {

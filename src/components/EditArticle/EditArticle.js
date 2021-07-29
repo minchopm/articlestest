@@ -3,6 +3,7 @@ import { Tabs, Tab, Form, Button } from "react-bootstrap";
 import * as moment from 'moment';
 import { Editor, OriginalTools } from 'react-bootstrap-editor';
 import { Formik } from "formik";
+import ReactQuill from 'react-quill';
 
 class EditArticle extends Component {
 
@@ -134,11 +135,8 @@ class EditArticle extends Component {
                                         </Form.Group>
                                         <Form.Group className="mb-3 contentGroup" controlId="exampleForm.ControlTextarea1">
                                             <Form.Label>Content <span className="red">*</span></Form.Label>
-                                            <Editor
-                                                tools={OriginalTools}
-                                                value={formProps.values.descriptionEN}
-                                                onChange={(value) => this.setValue('descriptionEN', value, formProps)}
-                                            />
+                                            <ReactQuill value={formProps.values.descriptionEN}
+                                                onChange={(value) => this.setValue('descriptionEN', value, formProps)} />
                                         </Form.Group>
                                     </Tab>
                                     <Tab eventKey="german" title="German">
@@ -152,11 +150,8 @@ class EditArticle extends Component {
                                         </Form.Group>
                                         <Form.Group className="mb-3 contentGroup" controlId="exampleForm.ControlTextarea1">
                                             <Form.Label>Content <span className="red">*</span></Form.Label>
-                                            <Editor
-                                                tools={OriginalTools}
-                                                value={formProps.values.descriptionDE}
-                                                onChange={(value) => this.setValue('descriptionDE', value, formProps)}
-                                            />
+                                            <ReactQuill value={formProps.values.descriptionDE}
+                                                onChange={(value) => this.setValue('descriptionDE', value, formProps)} />
                                         </Form.Group>
                                     </Tab>
                                     <Tab eventKey="bulgarian" title="Bulgarian">
@@ -170,11 +165,8 @@ class EditArticle extends Component {
                                         </Form.Group>
                                         <Form.Group className="mb-3 contentGroup" controlId="exampleForm.ControlTextarea1">
                                             <Form.Label>Content <span className="red">*</span></Form.Label>
-                                            <Editor
-                                                tools={OriginalTools}
-                                                value={formProps.values.descriptionBG}
-                                                onChange={(value) => this.setValue('descriptionBG', value, formProps)}
-                                            />
+                                            <ReactQuill value={formProps.values.descriptionBG}
+                                                onChange={(value) => this.setValue('descriptionBG', value, formProps)} />
                                         </Form.Group>
                                     </Tab>
                                 </Tabs>
