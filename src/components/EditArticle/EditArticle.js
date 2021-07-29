@@ -189,15 +189,15 @@ class EditArticle extends Component {
                                 <Form.Group className="mb-3" controlId="formBasicCheckbox">
                                     <Form.Check type="checkbox" label="Is Active" name="isActive" onChange={() => formProps.setFieldValue('isActive', !formProps.values.isActive)} checked={formProps.values.isActive} />
                                 </Form.Group>
+                                <Button variant="primary" onClick={() => this.submitForm(formProps)} style={{marginBottom: '10px'}}>
+                                    Submit
+                                </Button>
                                 {
                                     this.state.submitted && this.state.missingFields.map((el, index) => 
                                     <div key={index} className="red">
                                         {el}
                                     </div>)
                                 }
-                                <Button variant="primary" onClick={() => this.submitForm(formProps)} style={{marginTop: '10px'}}>
-                                    Submit
-                                </Button>
                             </Form>
                         )}
                         
