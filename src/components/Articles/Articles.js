@@ -56,7 +56,7 @@ class Articles extends Component {
 
     render() {
         return (
-            <div style={{marginLeft: 15}}>
+            <div>
                 <div className="language">
                     <h1>Articles listing</h1>
                     <DropdownButton as={ButtonGroup} title={this.state.language} id="bg-nested-dropdown">
