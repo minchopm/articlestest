@@ -85,3 +85,27 @@
   margin-right: 0px !important;
   margin-left: 10px;
 }
+
+.articlesSingle {
+  max-width: 600px;
+  text-align: left;
+  margin: auto;
+}
+.articlesSingle h4 {
+  color: #4EAACD;
+  margin: 10px 0px;
+  cursor: pointer;
+  width: fit-content;
+}
+.articlesSingleDescription {
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 5px;
+}
+.articlesSingleContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

@@ -7,12 +7,54 @@ class Articles extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            articles: []
+            articles: [],
+            language: ''
         };
     }
 
     componentDidMount() {
-        this.setState({ articles: JSON.parse(localStorage.getItem('articles'))})
+        this.setState({ articles: JSON.parse(localStorage.getItem('articles')), language: localStorage.getItem('language')});
+    }
+    
+    returnArticle(el) {
+        switch(this.state.language) {
+            default:
+                return (
+                    <>
+                        <h4 onClick={() => this.props.history.push(`/articles/${el.id}`)}>{el.titleEN}</h4>
+                        <div className="articlesSingleDescription">
+                            {el.descriptionEN.length > 50 ? el.descriptionEN.substring(0,50)+'...' : el.descriptionEN}
+                        </div>
+                    </>
+                )
+            case 'EN':
+                return (
+                    <>
+                        <h4 onClick={() => this.props.history.push(`/articles/${el.id}`)}>{el.titleEN}</h4>
+                        <div className="articlesSingleDescription">
+                            {el.descriptionEN.length > 50 ? el.descriptionEN.substring(0,50)+'...' : el.descriptionEN}
+                        </div>
+                    </>
+                )
+            case 'DE':
+                return (
+                    <>
+                        <h4 onClick={() => this.props.history.push(`/articles/${el.id}`)}>{el.titleDE}</h4>
+                        <div className="articlesSingleDescription">
+                            {el.descriptionDE.length > 50 ? el.descriptionDE.substring(0,50)+'...' : el.descriptionDE}
+                        </div>
+                    </>
+                )
+            case 'BG':
+                return (
+                    <>
+                        <h4 onClick={() => this.props.history.push(`/articles/${el.id}`)}>{el.titleBG}</h4>
+                        <div className="articlesSingleDescription">
+                            {el.descriptionBG.length > 50 ? el.descriptionBG.substring(0,50)+'...' : el.descriptionBG}
+                        </div>
+                    </>
+                )
+        }
     }
 
     render() {
@@ -21,12 +63,9 @@ class Articles extends Component {
                 <h1>Articles listing</h1>
                 <Button onClick={() => this.props.history.push('/articles/add')}>Add article</Button>
                 {this.state.articles.length > 0 && this.state.articles.map((el, index) =>
-                <div style={{maxWidth: 600, textAlign: 'left', margin: 'auto'}} key={index}>
-                    <h4 style={{color: '#4EAACD', margin: '10px 0', cursor: 'pointer', width: 'fit-content'}} onClick={() => this.props.history.push(`/articles/${el.id}`)}>{el.titleEN}</h4>
-                    <div style={{flex: 1, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', marginBottom: 5}}>
-                        {el.descriptionEN.length > 50 ? el.descriptionEN.substring(0,50)+'...' : el.descriptionEN}
-                    </div>
-                    <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+                <div key={index} className="articlesSingle">
+                    {this.returnArticle(el)}
+                    <div className="articlesSingleContainer">
                         <div style={{fontSize: 14, color: 'grey'}}>
                             {moment(el.publishedAt).format("MMMM DD, YYYY")}
                         </div>
