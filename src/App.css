@@ -40,3 +40,48 @@
   margin-right: auto;
   /* text-align: center; */
 }
+
+.singleArticle {
+  text-align: left;
+  max-width: 600px;
+  margin: auto;
+}
+.singleArticle h4 {
+  color: #4EAACD;
+  margin: 10px 0px;
+  cursor: pointer;
+  width: fit-content;
+}
+.singleArticle .publishedAt {
+  font-size: 14px;
+  color: grey;
+}
+
+.singleArticleLinks {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  max-width: 600px;
+  margin: auto;
+}
+.back a {
+  text-decoration: none;
+  margin-left: 15px;
+  cursor: pointer;
+  color: #0d6efd !important;
+}
+
+.back .divider {
+  flex: 1 1 auto;
+}
+
+.links a {
+  text-decoration: none;
+  margin-right: 10px;
+  cursor: pointer;
+  color: #0d6efd;
+}
+.next {
+  margin-right: 0px !important;
+  margin-left: 10px;
+}
