@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import { Dropdown, Button, DropdownButton, ButtonGroup } from "react-bootstrap";
+import { Dropdown, DropdownButton, ButtonGroup } from "react-bootstrap";
 import * as moment from 'moment';
+import PropTypes from 'prop-types';
 
 class SingleArticle extends Component {
 
@@ -32,7 +33,7 @@ class SingleArticle extends Component {
         this.props.history.push('/articles');
     }
 
-    setLanguage = (language) => {
+    setLanguage(language) {
         this.setState({language: language});
         localStorage.setItem('language', language);
     }
@@ -102,6 +103,17 @@ class SingleArticle extends Component {
             </div>
         );
     }
-};
+}
+
+SingleArticle.propTypes = {
+    match: PropTypes.shape({
+        params: PropTypes.shape({
+            id: PropTypes.number
+        })
+    }),
+    history: PropTypes.shape({
+        push: PropTypes.func
+    })
+}
 
 export default SingleArticle;

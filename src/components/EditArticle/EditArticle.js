@@ -1,10 +1,8 @@
 import React, { Component } from "react";
 import { Tabs, Tab, Form, Button } from "react-bootstrap";
-import * as moment from 'moment';
-import { Editor, OriginalTools } from 'react-bootstrap-editor';
 import { Formik } from "formik";
 import ReactQuill from 'react-quill';
-import Blank from './';
+import PropTypes from 'prop-types';
 
 class EditArticle extends Component {
 
@@ -20,7 +18,7 @@ class EditArticle extends Component {
         
     }
 
-    returnInitialValues = () => {
+    returnInitialValues() {
         if(this.props.match.params.id) {
             const articles = JSON.parse(localStorage.getItem('articles'));
             const foundArticle = articles[this.props.match.params.id-1];
@@ -50,7 +48,7 @@ class EditArticle extends Component {
         }
     }
 
-    submitForm = (formProps) => {
+    submitForm(formProps) {
         if(this.disabledButton(formProps.values)) {
             this.setState({submitted: true, missingFields: this.validations(formProps.values)});
             return;
@@ -84,11 +82,11 @@ class EditArticle extends Component {
         this.props.history.push('/articles');
     }
 
-    disabledButton = (values) => {
+    disabledButton(values) {
         return !values.titleEN || !values.descriptionEN || !values.titleDE || !values.descriptionDE || !values.titleBG || !values.descriptionBG || !values.publishedAt;
     }
 
-    validations = (values) => {
+    validations(values) {
         const validationsArray = [];
         const validationsMessages = {
             titleEN: 'Missing English title',
@@ -107,7 +105,7 @@ class EditArticle extends Component {
         return validationsArray;
     }
 
-    setValue = (fieldValue, value, formProps) => {
+    setValue(fieldValue, value, formProps) {
         formProps.setFieldValue(fieldValue, value);
         this.setState({missingFields: this.validations({...formProps.values, [fieldValue]: value})});
     }
@@ -199,6 +197,17 @@ class EditArticle extends Component {
             </div>
         );
     }
-};
+}
+
+EditArticle.propTypes = {
+    match: PropTypes.shape({
+        params: PropTypes.shape({
+            id: PropTypes.number
+        })
+    }),
+    history: PropTypes.shape({
+        push: PropTypes.func
+    })
+}
 
 export default EditArticle;
