@@ -1,6 +1,5 @@
 .contentGroup {
-  display: grid;
-  grid-auto-columns: 12fr;
+  display: flex;
 }
 .contentGroup label {
   grid-column-start: 1;
@@ -23,7 +22,7 @@
   justify-content: flex-end;
 }
 .otherGroup input {
-  max-width: 480px;
+  max-width: 507px;
 }
 .otherGroup label {
   flex: none; 
@@ -114,4 +113,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+.marginTop60 {
+  margin-top: 60px;
 }

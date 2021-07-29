@@ -169,7 +169,7 @@ class EditArticle extends Component {
                                         </Form.Group>
                                     </Tab>
                                 </Tabs>
-                                <Form.Group className="mb-3 otherGroup" controlId="formBasicCheckbox">
+                                <Form.Group className="mb-3 otherGroup marginTop60" controlId="formBasicCheckbox">
                                     <Form.Label>
                                         Date <span className="red">*</span>
                                     </Form.Label>
