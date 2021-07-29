@@ -5,17 +5,12 @@ import Articles from "./components/Articles/Articles";
 import SingleArticle from "./components/SingleArticle/SingleArticle";
 import EditArticle from "./components/EditArticle/EditArticle";
 import 'react-quill/dist/quill.snow.css';
+import data from './db';
 
 class App extends Component {
   componentDidMount() {
-    fetch('http://localhost:3004/articles')
-        .then(res => res.json())
-        .then(res => {
-          this.setState({articles: res});
-          localStorage.setItem('articles', JSON.stringify(res));
-          localStorage.setItem('language', 'EN');
-        }
-    );
+    localStorage.setItem('articles', JSON.stringify(data.articles));
+    localStorage.setItem('language', 'EN');
   }
   render() {
     return (
