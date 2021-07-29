@@ -4,6 +4,7 @@ import * as moment from 'moment';
 import { Editor, OriginalTools } from 'react-bootstrap-editor';
 import { Formik } from "formik";
 import ReactQuill from 'react-quill';
+import Blank from './';
 
 class EditArticle extends Component {
 
